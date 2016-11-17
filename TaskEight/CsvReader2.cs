@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -26,6 +27,9 @@ namespace TaskEight
                         yield break;
                     }
 
+                    if (header.Length != values.Length)
+                        throw new ArgumentException("Строка не соотсетствует заголовку!");
+
                     yield return GetObject<T>(header, values);
                 }
             }
@@ -52,7 +56,7 @@ namespace TaskEight
                 property.SetValue(result, int.Parse(value));
             
             if (property.PropertyType == typeof(double))
-                property.SetValue(result, double.Parse(value, new NumberFormatInfo()));
+                property.SetValue(result, double.Parse(value, CultureInfo.InvariantCulture));
 
             if (property.PropertyType == typeof(string))           
                 property.SetValue(result, value);
@@ -63,13 +67,6 @@ namespace TaskEight
                 int res;
                 property.SetValue(result, int.TryParse(value, out res) ? (int?)res : null);
             }
-
-            if (property.PropertyType == typeof(double?))
-            {
-                double res;
-                property.SetValue(result, double.TryParse(value, out res) ? (double?)res : null);
-            }
-
         }
     }
 }

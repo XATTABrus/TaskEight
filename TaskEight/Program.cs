@@ -19,7 +19,9 @@ namespace TaskEight
         {
             //Show(CsvReader.ReadCsv1);
 
-            Show(CsvReader2.ReadCsv2<Model>);
+            //Show(CsvReader2.ReadCsv2<Model>);
+
+            Show(CsvReader3.ReadCsv3);
         }
     }
 }
