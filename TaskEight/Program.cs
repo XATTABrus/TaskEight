@@ -1,21 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TaskEight
 {
     static class Program
     {
-        static void Main(string[] args)
+        private static void Show<T>(Func<string, IEnumerable<T>> func)
         {
-            foreach (var itme in CsvReader.ReadCsv1("airquality.csv"))
+            foreach (var itme in func("airquality.csv"))
             {
-                foreach (var s in itme)
-                {
-                    if(s != null)
-                    Console.Write(s + " ");
-                }
-                Console.WriteLine();
+                Console.WriteLine(itme.ToString());
+
                 Console.ReadLine();
             }
+        }
+
+        static void Main(string[] args)
+        {
+            //Show(CsvReader.ReadCsv1);
+
+            Show(CsvReader2.ReadCsv2<Model>);
         }
     }
 }

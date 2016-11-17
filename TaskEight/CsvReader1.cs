@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TaskEight
 {
-    public static class CsvReader
+    public static class CsvReader1
     {
         public static IEnumerable<string[]> ReadCsv1(string path)
         {
