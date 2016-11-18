@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TaskEight
 {
@@ -21,7 +22,9 @@ namespace TaskEight
 
             //Show(CsvReader2.ReadCsv2<Model>);
 
-            Show(CsvReader3.ReadCsv3);
+            //Show(CsvReader3.ReadCsv3);
+
+            Show(CsvReader4.ReadCsv4);
         }
     }
 }
