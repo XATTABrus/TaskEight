@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -11,28 +9,7 @@ namespace TaskEight
     {
         public static IEnumerable<T> ReadCsv2<T>(string path) where T : new()
         {
-            using (var stream = new StreamReader(path))
-            {
-                // Получаем заголовок файла
-                var header = stream.ReadLine()?.Replace("\"", "").Split(',');
-
-                while (true)
-                {
-                    // Читаем данные из файла
-                    var values = stream.ReadLine()?.Split(',');
-
-                    if (values == null || header == null)
-                    {
-                        stream.Close();
-                        yield break;
-                    }
-
-                    if (header.Length != values.Length)
-                        throw new ArgumentException("Строка не соотсетствует заголовку!");
-
-                    yield return GetObject<T>(header, values);
-                }
-            }
+            return CsvReader.ReadCsv(path, GetObject<T>);                   
         }
 
         private static T GetObject<T>(string[] header, string[] values) where T : new ()

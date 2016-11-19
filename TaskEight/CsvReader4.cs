@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Dynamic;
-using System.IO;
 
 namespace TaskEight
 {
@@ -9,37 +7,19 @@ namespace TaskEight
     {
         public static IEnumerable<dynamic> ReadCsv4(string path)
         {
-            using (var stream = new StreamReader(path))
+            return CsvReader.ReadCsv(path, (header, values) =>
             {
-                // Получаем заголовок файла
-                var header = stream.ReadLine()?.Replace("\"", "").Split(',');
+                var result = new ExpandoObject();
+                var expandoDict = (IDictionary<string, object>)result;
 
-                while (true)
+                for (var i = 0; i < values.Length; i++)
                 {
-                    // Читаем данные из файла
-                    var values = stream.ReadLine()?.Split(',');
-
-                    if (values == null || header == null)
-                    {
-                        stream.Close();
-                        yield break;
-                    }
-
-                    if (header.Length != values.Length)
-                        throw new ArgumentException("Строка не соотсетствует заголовку!");
-
-                    var result = new ExpandoObject();
-                    var expandoDict = (IDictionary<string, object>)result;
-
-                    for (var i = 0; i < values.Length; i++)
-                    {
-                        var res = Converter.Convert(header[i], values[i]);
-                        expandoDict.Add(header[i], res);
-                    }
-
-                    yield return result;
+                    var res = Converter.Convert(header[i], values[i]);
+                    expandoDict.Add(header[i], res);
                 }
-            }
+
+                return result;
+            });
         }
     }
 }
