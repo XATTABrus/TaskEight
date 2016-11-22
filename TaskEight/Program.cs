@@ -18,13 +18,15 @@ namespace TaskEight
 
         static void Main(string[] args)
         {
-            Show(CsvReader1.ReadCsv1);
+            //Show(CsvReader1.ReadCsv1);
 
             //Show(CsvReader2.ReadCsv2<Model>);
 
             //Show(CsvReader3.ReadCsv3);
 
             //Show(CsvReader4.ReadCsv4);
+
+            Console.WriteLine(CsvReader4.ReadCsv4("airquality.csv").Where(z => z.Ozone > 10).Select(z => z.Wind).FirstOrDefault());
         }
     }
 }

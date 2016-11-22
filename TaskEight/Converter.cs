@@ -7,6 +7,23 @@ namespace TaskEight
 {
     public static class Converter
     {
+
+        public static object DynamicConvert(string value)
+        {
+            if (value == "NA")
+                return null;
+
+            double doubleResult;
+            if (double.TryParse(value, out doubleResult))
+                return doubleResult;
+
+            int intResult;
+            if (int.TryParse(value, out intResult))
+                return intResult;
+
+            return value;
+        }
+
         // Аргумент notUsed добавлена тут для того чтоб компилятор не ругался на схожие сигнатуры методов
         // Я просто хочу показать разные подходы решения задачи конвертации
         public static object Convert(string propName, string value, Type type, object notUsed) 

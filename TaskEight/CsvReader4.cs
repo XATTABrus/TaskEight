@@ -14,8 +14,7 @@ namespace TaskEight
 
                 for (var i = 0; i < values.Length; i++)
                 {
-                    var res = Converter.Convert(header[i], values[i]);
-                    expandoDict.Add(header[i], res);
+                    expandoDict.Add(header[i], Converter.DynamicConvert(values[i]));
                 }
 
                 return result;
